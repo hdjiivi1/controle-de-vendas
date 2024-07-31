@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+
+// Classe Produto
+public class Produto
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    public decimal Preco { get; set; }
+
+    public Produto(int id, string nome, decimal preco)
+    {
+        Id = id;
+        Nome = nome;
+        Preco = preco;
+    }
+}
+
+// Classe Venda
+public class Venda
+{
+    public int Id { get; set; }
+    public Produto ProdutoVendido { get; set; }
+    public int Quantidade { get; set; }
+    public DateTime Data { get; set; }
+
+    public Venda(int id, Produto produto, int quantidade)
+    {
+        Id = id;
+        ProdutoVendido = produto;
+        Quantidade = quantidade;
+        Data = DateTime.Now;
+    }
+
+    public decimal ValorTotal => ProdutoVendido.Preco * Quantidade;
+}
+
+// Classe ControleDeVendas
+public class ControleDeVendas
+{
+    private List<Produto> produtos = new List<Produto>();
+    private List<Venda> vendas = new List<Venda>();
+
+    // Adiciona produto
+    public void AdicionarProduto(Produto produto)
+    {
+        produtos.Add(produto);
+    }
+
+    // Registra venda
+    public void RegistrarVenda(Venda venda)
+    {
+        vendas.Add(venda);
+    }
+
+    // Gera relatório de vendas
+    public void GerarRelatorioDeVendas()
+    {
+        decimal totalVendas = 0;
+        Console.WriteLine("Relatório de Vendas:");
+        foreach (var venda in vendas)
+        {
+            Console.WriteLine($"ID Venda: {venda.Id}, Produto: {venda.ProdutoVendido.Nome}, Quantidade: {venda.Quantidade}, Data: {venda.Data}, Valor Total: {venda.ValorTotal:C}");
+            totalVendas += venda.ValorTotal;
+        }
+        Console.WriteLine($"Total de Vendas: {totalVendas:C}");
+    }
+}
