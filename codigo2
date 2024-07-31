@@ -1,0 +1,24 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        ControleDeVendas controle = new ControleDeVendas();
+
+        // Adiciona produtos
+        Produto produto1 = new Produto(1, "Produto A", 10.50m);
+        Produto produto2 = new Produto(2, "Produto B", 20.75m);
+        controle.AdicionarProduto(produto1);
+        controle.AdicionarProduto(produto2);
+
+        // Registra vendas
+        Venda venda1 = new Venda(1, produto1, 2);
+        Venda venda2 = new Venda(2, produto2, 1);
+        controle.RegistrarVenda(venda1);
+        controle.RegistrarVenda(venda2);
+
+        // Gera relatório de vendas
+        controle.GerarRelatorioDeVendas();
+    }
+}
